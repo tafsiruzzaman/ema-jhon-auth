@@ -33,7 +33,18 @@ const Shop = () => {
     }, [products])
     
     const handleAddToCart = (product) => {
-        const newCart = [...cart, product];
+        const newCart = [...cart];
+        let exist = false;
+        for (const prod of newCart) {
+            if(prod.key === product.key) {
+                prod.quantity = prod.quantity + 1;
+                exist = true;
+            };
+        }
+        if (exist === false) {
+            newCart.push(product)
+        };
+        
         setCart(newCart);
         addToDb(product.key);
     }
