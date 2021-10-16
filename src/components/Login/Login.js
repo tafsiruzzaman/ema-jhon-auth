@@ -1,24 +1,39 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import useFirebase from '../../hooks/useFirebase';
+import { Link, useHistory, useLocation } from 'react-router-dom';
+import useAuth from '../../hooks/useAuth';
 import "./Login.css";
 
 const Login = () => {
-    const { sighInUsingGoogle } = useFirebase();
+    const { sighInUsingGoogle, setError, setUser } = useAuth();
+    const location = useLocation();
+    const history = useHistory();
+    const redirect_uri = location.state?.from || '/shop';
+
+    const handleGoogleLogin = () => {
+        sighInUsingGoogle()
+        .then(result => {
+            history.push(redirect_uri);
+            setUser(result.user);
+        })
+        .catch(error => {
+            setError(error.message);
+        });
+    };
+
     return (
         <div className="form">
             <div>
                 <h2>Login</h2>
-                <form onSubmit="">
-                    <input type="email" name="" id="" placeholder="Your Email"/>
+                <form>
+                    <input type="email" name="" placeholder="Your Email"/>
                     <br />
-                    <input type="password" name="" id="" placeholder="Password"/>
+                    <input type="password" name="" placeholder="Password"/>
                     <br />
                     <input type="submit" value="Submit" />
                 </form>
                 <p>New to ema-jhon <Link to="/register">Create Account</Link></p>
                 <div>....................or.....................</div>
-                <button onClick={sighInUsingGoogle} className="btn-regular">Google Sign In</button>
+                <button onClick={handleGoogleLogin} className="btn-regular">Google Sign In</button>
             </div>
         </div>
     );
