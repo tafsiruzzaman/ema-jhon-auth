@@ -1,3 +1,11 @@
+.search-container{
+    background-color: rgba(0, 0, 0, 0.85);
+    text-align: center;
+    line-height: 40px;
+}
+.search-container input{
+    width: 75%;
+}
 .shop-container{
     display: grid;
     grid-template-columns: 3fr 1fr;
@@ -7,12 +15,15 @@
     margin-right: 5px;
     margin-left: 50px;
 }
-.input-container{
-    background-color: black;
-    text-align: center;
+
+.pagination{
+    margin: 30px;
 }
-.search-input {
-    width: 55%;
-    height: 20px;
-    margin-bottom: 5px;
+.pagination button{
+    padding: 0 10px;
+    margin-right: 20px;
+}
+.pagination .selected{
+    background-color: rgb(43, 43, 224);
+    color: white;
 }
